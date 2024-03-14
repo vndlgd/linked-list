@@ -177,8 +177,9 @@ function LinkedList() {
   // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
   function toString() {
     let stringOutput = '';
+    let listSize = size();
 
-    if (headNode.value === null) {
+    if (listSize === 0) {
       return 'null';
     } else {
       stringOutput += `${headNode.value} -> `;
@@ -192,15 +193,52 @@ function LinkedList() {
 
       stringOutput += `${tailNode.nextNode}`;
 
-      return stringOutput;
+      console.log(stringOutput);
     }
   }
 
   // insertAt(value, index) that inserts a new node with the provided value at the given index.
-  function insertAt(value, index) {}
+  function insertAt(value, index) {
+    if (headNode.value === null) {
+    }
+  }
 
   // removeAt(index) that removes the node at the given index.
-  function removeAt(index) {}
+  function removeAt(index) {
+    const listSize = size();
+    // if list is empty, remove nothing
+    if (headNode === null) {
+      return;
+    } else if (index >= listSize) {
+      console.log('Invalid index.');
+      return;
+    }
+    const target = at(index);
+    let prev = headNode;
+    let curr = headNode.nextNode;
+
+    // edge case if target is head node
+    if (headNode.value === target.value) {
+      headNode = curr;
+      return;
+    }
+
+    // search for target in list and update nextNode values
+    while (curr.nextNode !== null) {
+      if (curr.value === target.value) {
+        prev.nextNode = curr.nextNode;
+        return; // exit loop
+      } else {
+        prev = prev.nextNode;
+        curr = curr.nextNode;
+      }
+    }
+
+    // edge case if target value is tail node
+    if (curr.value === target.value) {
+      prev.nextNode = null;
+    }
+  }
 
   return {
     append,
@@ -235,6 +273,7 @@ linkedlist.prepend('ethan');
 // console.log(linkedlist.contains('sam'));
 // console.log(linkedlist.find('sam'));
 console.log(linkedlist.at(3));
-linkedlist.pop();
+// linkedlist.pop();
 console.log(linkedlist.size());
-console.log(linkedlist.toString());
+linkedlist.removeAt(5);
+linkedlist.toString();
