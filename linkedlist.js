@@ -161,7 +161,26 @@ function LinkedList() {
   }
 
   // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
-  function toString() {}
+  function toString() {
+    let stringOutput = '';
+
+    if (headNode.value === null) {
+      return 'null';
+    } else {
+      stringOutput += `${headNode.value} -> `;
+      let tmp = headNode;
+      let tailNode = tail();
+
+      while (tmp.nextNode !== null) {
+        tmp = tmp.nextNode;
+        stringOutput += ` ${tmp.value} -> `;
+      }
+
+      stringOutput += `${tailNode.nextNode}`;
+
+      return stringOutput;
+    }
+  }
 
   // insertAt(value, index) that inserts a new node with the provided value at the given index.
   function insertAt(value, index) {}
@@ -203,3 +222,4 @@ linkedlist.prepend('ethan');
 // console.log(linkedlist.find('sam'));
 // console.log(linkedlist.size());
 console.log(linkedlist.at(3));
+console.log(linkedlist.toString());
