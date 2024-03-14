@@ -1,14 +1,43 @@
 function LinkedList() {
   // TODO: implement the following functions
+  let headNode = Node();
 
   // append(value) adds a new node containing value to the end of the list
-  function append(value) {}
+  function append(value) {
+    // if headNode is null, we add our first node to the linked list
+    if (headNode.value === null) {
+      headNode.value = value;
+      return; // exit the function
+    }
+    // else, we traverse list until we are at the very end and then add node
+    let tmp = headNode;
+    while (tmp.nextNode !== null) {
+      tmp = tmp.nextNode;
+    }
+
+    let newNode = Node(value, null);
+    tmp.nextNode = newNode;
+  }
 
   // prepend(value) adds a new node containing value to the start of the list
   function prepend(value) {}
 
   // size returns the total number of nodes in the list
-  function size() {}
+  function size() {
+    let count = 0;
+    if (headNode.value === null) {
+      return 0;
+    } else {
+      count = 1;
+      let tmp = headNode;
+      while (tmp.nextNode !== null) {
+        tmp = tmp.nextNode;
+        count += 1;
+      }
+    }
+
+    return count;
+  }
 
   // head returns the first node in the list
   function head() {}
@@ -55,4 +84,12 @@ function LinkedList() {
 
 function Node(value = null, nextNode = null) {
   // write code here
+  return { value, nextNode };
 }
+
+let linkedlist = LinkedList();
+linkedlist.append(1);
+linkedlist.append(2);
+linkedlist.append(3);
+
+console.log(linkedlist.size());
