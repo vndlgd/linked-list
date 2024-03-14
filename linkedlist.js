@@ -10,7 +10,7 @@ function LinkedList() {
       return; // exit the function
     }
     // else, we traverse list until we are at the very end and then add node
-    let tmp = headNode;
+    let tmp = headNode; // all tmp variables are pointers
     while (tmp.nextNode !== null) {
       tmp = tmp.nextNode;
     }
@@ -77,15 +77,16 @@ function LinkedList() {
 
   // contains(value) returns true if the passed in value is in the list and otherwise returns false.
   function contains(value) {
+    // if linked list is empty
     if (headNode.value === null) {
       return false;
     } else {
-      let tmp = headNode;
-
       // check if value is in the head node
-      if (tmp.value === value) {
+      if (headNode.value === value) {
         return true;
       }
+
+      let tmp = headNode;
 
       // or else, lets traverse the list to see if it contains that value
       while (tmp.nextNode !== null) {
@@ -96,11 +97,45 @@ function LinkedList() {
         }
       }
     }
+
+    let tailNode = tail();
+    if (tailNode.value === value) {
+      return true;
+    }
+
     return false;
   }
 
   // find(value) returns the index of the node containing value, or null if not found.
-  function find(value) {}
+  function find(value) {
+    // if value not found in list, don't bother with finding index
+    if (contains(value) === false) {
+      return null;
+    }
+
+    // if value is at head
+    if (headNode.value === value) {
+      return 0;
+    }
+
+    let tmp = headNode;
+    let index = 0;
+
+    // else, traverse list to find
+    while (tmp.nextNode !== null) {
+      tmp = tmp.nextNode;
+      index += 1;
+      if (tmp.value === value) {
+        return index;
+      }
+    }
+
+    // if value is at last index
+    let tailNode = tail();
+    if (tailNode.value === value) {
+      return true;
+    }
+  }
 
   // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
   function toString() {}
@@ -140,6 +175,6 @@ linkedlist.prepend('luke');
 linkedlist.prepend('jonah');
 console.log(linkedlist.head());
 console.log(linkedlist.tail());
-console.log(linkedlist.contains('angel'));
-
+console.log(linkedlist.contains('sam'));
+console.log(linkedlist.find('sam'));
 console.log(linkedlist.size());
