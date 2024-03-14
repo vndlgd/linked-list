@@ -96,7 +96,21 @@ function LinkedList() {
   }
 
   // pop removes the last element from the list
-  function pop() {}
+  function pop() {
+    // if list is empty, do nothing
+    if (headNode.value === null) {
+      return;
+    }
+    let tmp = headNode;
+
+    // tmp next next node checks for the 2nd to last element
+    // sets its next node to null so that last node is removed from the list
+    while (tmp.nextNode.nextNode !== null) {
+      tmp = tmp.nextNode;
+    }
+
+    tmp.nextNode = null;
+  }
 
   // contains(value) returns true if the passed in value is in the list and otherwise returns false.
   function contains(value) {
@@ -220,6 +234,7 @@ linkedlist.prepend('ethan');
 // console.log(linkedlist.tail());
 // console.log(linkedlist.contains('sam'));
 // console.log(linkedlist.find('sam'));
-// console.log(linkedlist.size());
 console.log(linkedlist.at(3));
+linkedlist.pop();
+console.log(linkedlist.size());
 console.log(linkedlist.toString());
