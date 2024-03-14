@@ -70,7 +70,30 @@ function LinkedList() {
   }
 
   // at(index) returns the node at the given index
-  function at(index) {}
+  function at(index) {
+    let count = 0;
+    let listSize = size();
+    let tailNode = tail();
+    if (index >= listSize) {
+      return null;
+    }
+
+    if (index === 0) {
+      return headNode;
+    } else if (index === size - 1) {
+      return tailNode;
+    } else {
+      let tmp = headNode;
+
+      while (tmp.nextNode !== null) {
+        count += 1;
+        tmp = tmp.nextNode;
+        if (count === index) {
+          return tmp;
+        }
+      }
+    }
+  }
 
   // pop removes the last element from the list
   function pop() {}
@@ -173,8 +196,10 @@ linkedlist.append('ivan');
 linkedlist.append('sam');
 linkedlist.prepend('luke');
 linkedlist.prepend('jonah');
-console.log(linkedlist.head());
-console.log(linkedlist.tail());
-console.log(linkedlist.contains('sam'));
-console.log(linkedlist.find('sam'));
-console.log(linkedlist.size());
+linkedlist.prepend('ethan');
+// console.log(linkedlist.head());
+// console.log(linkedlist.tail());
+// console.log(linkedlist.contains('sam'));
+// console.log(linkedlist.find('sam'));
+// console.log(linkedlist.size());
+console.log(linkedlist.at(3));
