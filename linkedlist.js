@@ -74,7 +74,8 @@ function LinkedList() {
     let count = 0;
     let listSize = size();
     let tailNode = tail();
-    if (index >= listSize) {
+    if (index >= listSize || index < 0) {
+      console.log('Invalid index.');
       return null;
     }
 
@@ -199,7 +200,46 @@ function LinkedList() {
 
   // insertAt(value, index) that inserts a new node with the provided value at the given index.
   function insertAt(value, index) {
-    if (headNode.value === null) {
+    const listSize = size();
+    // if list is empty, remove nothing
+    if (headNode === null) {
+      return;
+    } else if (index > listSize || index < 0) {
+      console.log('Invalid index.');
+      return;
+    }
+
+    let newNode = Node(value);
+
+    // if index is 0, add to beginning of list
+    if (index === 0) {
+      prepend(value);
+      // if index is list size, add at the end of the list and make value the new tail node
+    } else if (index === listSize) {
+      append(value);
+    } else {
+      let prev = headNode;
+      let curr = headNode.nextNode;
+      let count = 0;
+
+      while (curr.nextNode !== null) {
+        count += 1;
+        if (count === index) {
+          // insert
+          prev.nextNode = newNode;
+          newNode.nextNode = curr;
+        } else {
+          // traverse
+          prev = prev.nextNode;
+          curr = curr.nextNode;
+        }
+      }
+
+      // if index is list size - 1
+      if (count + 1 === index) {
+        prev.nextNode = newNode;
+        newNode.nextNode = curr;
+      }
     }
   }
 
@@ -209,7 +249,7 @@ function LinkedList() {
     // if list is empty, remove nothing
     if (headNode === null) {
       return;
-    } else if (index >= listSize) {
+    } else if (index >= listSize || index < 0) {
       console.log('Invalid index.');
       return;
     }
@@ -262,18 +302,20 @@ function Node(value = null, nextNode = null) {
 }
 
 let linkedlist = LinkedList();
-linkedlist.append('angel');
-linkedlist.append('ivan');
-linkedlist.append('sam');
-linkedlist.prepend('luke');
-linkedlist.prepend('jonah');
-linkedlist.prepend('ethan');
+// linkedlist.append('angel');
+// linkedlist.append('ivan');
+// linkedlist.append('sam');
+// linkedlist.prepend('luke');
+// linkedlist.prepend('jonah');
+// linkedlist.prepend('ethan');
 // console.log(linkedlist.head());
 // console.log(linkedlist.tail());
 // console.log(linkedlist.contains('sam'));
 // console.log(linkedlist.find('sam'));
-console.log(linkedlist.at(3));
+// console.log(linkedlist.at(2));
 // linkedlist.pop();
-console.log(linkedlist.size());
-linkedlist.removeAt(5);
+// linkedlist.at(-1);
+// linkedlist.insertAt('dom', 6);
+// console.log(linkedlist.size());
+// linkedlist.removeAt(-1);
 linkedlist.toString();
