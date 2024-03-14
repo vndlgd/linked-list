@@ -20,7 +20,16 @@ function LinkedList() {
   }
 
   // prepend(value) adds a new node containing value to the start of the list
-  function prepend(value) {}
+  function prepend(value) {
+    if (headNode.value === null) {
+      headNode.value = value;
+      return; // exit the function
+    }
+
+    let tmp = headNode;
+    let newNode = Node(value, tmp);
+    headNode = newNode;
+  }
 
   // size returns the total number of nodes in the list
   function size() {
@@ -41,11 +50,24 @@ function LinkedList() {
 
   // head returns the first node in the list
   function head() {
-    return headNode.value;
+    return headNode;
   }
 
   // tail returns the last node in the list
-  function tail() {}
+  function tail() {
+    if (headNode.value === null) {
+      return null;
+    } else {
+      let tmp = headNode;
+
+      // traverse to the very last node
+      while (tmp.nextNode !== null) {
+        tmp = tmp.nextNode;
+      }
+
+      return tmp;
+    }
+  }
 
   // at(index) returns the node at the given index
   function at(index) {}
@@ -54,7 +76,28 @@ function LinkedList() {
   function pop() {}
 
   // contains(value) returns true if the passed in value is in the list and otherwise returns false.
-  function contains(value) {}
+  function contains(value) {
+    if (headNode.value === null) {
+      return false;
+    } else {
+      let tmp = headNode;
+
+      // check if value is in the head node
+      if (tmp.value === value) {
+        return true;
+      }
+
+      // or else, lets traverse the list to see if it contains that value
+      while (tmp.nextNode !== null) {
+        if (tmp.value === value) {
+          return true;
+        } else {
+          tmp = tmp.nextNode;
+        }
+      }
+    }
+    return false;
+  }
 
   // find(value) returns the index of the node containing value, or null if not found.
   function find(value) {}
@@ -90,9 +133,13 @@ function Node(value = null, nextNode = null) {
 }
 
 let linkedlist = LinkedList();
-linkedlist.append('erick');
+linkedlist.append('angel');
 linkedlist.append('ivan');
 linkedlist.append('sam');
+linkedlist.prepend('luke');
+linkedlist.prepend('jonah');
 console.log(linkedlist.head());
+console.log(linkedlist.tail());
+console.log(linkedlist.contains('angel'));
 
 console.log(linkedlist.size());
