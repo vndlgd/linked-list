@@ -40,7 +40,9 @@ function LinkedList() {
   }
 
   // head returns the first node in the list
-  function head() {}
+  function head() {
+    return headNode.value;
+  }
 
   // tail returns the last node in the list
   function tail() {}
@@ -88,8 +90,9 @@ function Node(value = null, nextNode = null) {
 }
 
 let linkedlist = LinkedList();
-linkedlist.append(1);
-linkedlist.append(2);
-linkedlist.append(3);
+linkedlist.append('erick');
+linkedlist.append('ivan');
+linkedlist.append('sam');
+console.log(linkedlist.head());
 
 console.log(linkedlist.size());
